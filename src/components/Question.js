@@ -10,17 +10,13 @@ function Question({ question, onAnswered }) {
 			onAnswered(false);
 			return;
 		}
-		// set up a timeout to run after 1 second
-		const timerId = setTimeout(() => {
-			// decrement the time remaining
+		const clockId = setTimeout(() => {
 			setTimeRemaining((timeRemaining) => timeRemaining - 1);
 		}, 1000);
-		// clean up after the timeout in case the component unmounts before the timer is done
-		return function () {
-			clearTimeout(timerId);
+		return () => {
+			clearTimeout(clockId);
 		};
 	}, [timeRemaining, onAnswered]);
-
 	function handleAnswer(isCorrect) {
 		setTimeRemaining(10);
 		onAnswered(isCorrect);
